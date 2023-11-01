@@ -3,10 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Versed</title>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
+        <title>File conversion</title>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.1.1/min/basic.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.1.1/min/dropzone.min.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.2.3/darkly/bootstrap.min.css" integrity="sha512-YRcmztDXzJQCCBk2YUiEAY+r74gu/c9UULMPTeLsAp/Tw5eXiGkYMPC4tc4Kp1jx/V9xjEOCVpBe4r6Lx6n5dA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        
         <style>
             .file-area {
                 width: 100%;
@@ -33,13 +37,13 @@
                 line-height: 1.6;
                 color: #fff;
             }
-            .file-area .file-dummy .icon {
+            .file-area .file-dummy .bi {
                 font-size: 64px;
                 color: rgba(255, 255, 255, 0.6);
                 display: block;
                 margin: 0 auto 50px auto;
             }
-            .file-area .file-dummy .success {
+            .file-area .file-dummy .bg-success {
                 display: none;
             }
             .file-area:hover .file-dummy {
@@ -53,90 +57,60 @@
                 border-color: rgba(0, 255, 0, 0.1);
                 background-color: rgba(0, 255, 0, 0.05);
             }
-            .file-area input[type=file]:valid + .file-dummy .success {
+            .file-area input[type=file]:valid + .file-dummy .bg-success {
                 display: inline;
             }
-            .file-area input[type=file]:valid + .file-dummy .default {
+            .file-area input[type=file]:valid + .file-dummy .bg-default {
                 display: none;
             }
             input[name=format] {
                 text-align: center;
             }
-            h1.ui.header {
-                font-size: 48px;
-                font-weight: 200;
-                margin-bottom: 30px;
-            }
-            .background {
-                position: fixed;
-                left: 0;
-                right: 0;
-                top: 0;
-                bottom: 0;
-                background-image: url(./background.jpg);
-                background-size: cover;
-                z-index: -1000;
-            }
-            .content {
-                max-width: 600px;
-                padding: 50px 0;
-                margin: auto;
-            }
-            footer {
-                font-size: 16px;
-                color: #fff;
-                text-align: center;
-                background: rgba(0, 0, 0, 0.5);
-                padding: 16px;
-                opacity: 0.6;
-            }
         </style>
     </head>
     <body>
-        <canvas class="background"></canvas>
-        <div class="ui container">
-            <div class="content">
-                <h1 class="ui inverted center aligned header">Versed</h1>
-                <form action="/convert" method="POST" enctype="multipart/form-data" class="ui massive form">
-                    <div class="field">
-                        <div class="file-area">  
-                            <input type="file" name="file" required>
-                            <div class="file-dummy">
-                                <span class="success">
-                                    <i class="file icon"></i>
-                                    Done!
-                                </span>
-                                <span class="default">
-                                    <i class="file icon"></i>
-                                    Choose a file or drag it here.
-                                </span>
+        <div id="app" class="d-flex align-items-center py-4">
+            <form action="/convert" method="POST" enctype="multipart/form-data" class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-6 col-sm-12">
+                        <div class="card">
+                            <div class="card-header">File Conversion</div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <div class="file-area">  
+                                        <input type="file" name="file" required>
+                                        <div class="file-dummy rounded">
+                                            <span class="bg-success">
+                                                <i class="bi bi-check-all"></i>
+                                                Done!
+                                            </span>
+                                            <span class="bg-default">
+                                                <i class="bi bi-file-earmark-arrow-up"></i>
+                                                Choose a file or drag it here.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">  
+                                    <input name="format" required class="form-control form-control-lg text-center" placeholder="e.g., pdf, png, mp4, avi">
+                                </div>
+                                <div class="mb-3">  
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="ocr" id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">OCR</label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 d-grid gap-2">
+                                    <button class="btn btn-primary btn-lg" type="submit">Convert</button>
+                                </div>
                             </div>
+                            <div class="card-footer">Made with 💙 by <a target="__blank" href="https://github.com/mchuluq">mchuluq</a> based on <a target="__blank" href="https://github.com/sgbj/versed">sgbj</a></div>
                         </div>
                     </div>
-                    <div class="field">  
-                        <input name="format" required class="ui inverted input" placeholder="e.g., pdf, png, mp4, avi">
-                    </div>
-                    <div class="field">  
-                        OCR <input type="checkbox" name="ocr" class="ui inverted input" >
-                    </div>
-                    <div class="field">
-                        <button class="ui massive fluid inverted button">Convert</button>
-                    </div>
-                    <footer>
-                        Made with 💙 by <a href="https://github.com/sgbj/versed">sgbj</a>
-                    </footer>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.0.2/particles.min.js"></script>
-        <script>
-            Particles.init({
-                selector: '.background',
-                connectParticles: true,
-                color: '#77aace'
-            });
-        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js" integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     </body>
 </html>

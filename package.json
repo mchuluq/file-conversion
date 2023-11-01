@@ -21,7 +21,8 @@
     "mime": "3.0.0",
     "multer": "1.4.5-lts.1",
     "rfc2047": "^4.0.1",
-    "tmp": "0.2.1"
+    "tmp": "0.2.1",
+    "dotenv": "^16.0.3"
   },
   "devDependencies": {
     "eslint": "^8.26.0",
